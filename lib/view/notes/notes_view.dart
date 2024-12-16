@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:new1/services/auth/auth_service.dart';
 import 'package:new1/services/crud/notes_service.dart';
-import '../constants/routes.dart';
-import '../enums/menu_action.dart';
+import '../../constants/routes.dart';
+import '../../enums/menu_action.dart';
 
 class NoteView extends StatefulWidget {
   const NoteView({super.key});
@@ -10,8 +10,6 @@ class NoteView extends StatefulWidget {
   @override
   State<NoteView> createState() => _NoteViewState();
 }
-
-
 
 class _NoteViewState extends State<NoteView> {
   late final NotesService _notesService;
@@ -22,6 +20,7 @@ class _NoteViewState extends State<NoteView> {
     _notesService = NotesService();
     super.initState();
   }
+
   @override
   void dispose() {
     _notesService.close();
@@ -32,8 +31,14 @@ class _NoteViewState extends State<NoteView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Main UI'),
+        title: const Text("You're Notes"),
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(newNoteRoute);
+            },
+            icon: const Icon(Icons.add),
+          ),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               switch (value) {
@@ -57,24 +62,24 @@ class _NoteViewState extends State<NoteView> {
         ],
       ),
       body: FutureBuilder(
-        future: _notesService.getOrCreateUser(email: userEmail),
-        builder: (context,  snapshot){
-          switch(snapshot.connectionState){
-            case ConnectionState.done:
-              return StreamBuilder(stream: _notesService.allNotes,
-                  builder: (context, snapshot){
-                switch(snapshot.connectionState){
-                  case ConnectionState.waiting:
-                    return const Text('waiting');
-                  default:
-                    return const CircularProgressIndicator();
-
-                }
-                  });
-            default:
-              return const CircularProgressIndicator();
-          }
-        }),
+          future: _notesService.getOrCreateUser(email: userEmail),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.done:
+                return StreamBuilder(
+                    stream: _notesService.allNotes,
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                          return const Text('waiting');
+                        default:
+                          return const CircularProgressIndicator();
+                      }
+                    });
+              default:
+                return const CircularProgressIndicator();
+            }
+          }),
     );
   }
 }
