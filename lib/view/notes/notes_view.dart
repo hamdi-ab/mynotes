@@ -71,6 +71,7 @@ class _NoteViewState extends State<NoteView> {
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.waiting:
+                        case ConnectionState.active:
                           return const Text('waiting');
                         default:
                           return const CircularProgressIndicator();
