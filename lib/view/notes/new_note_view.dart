@@ -17,6 +17,7 @@ class _NewNoteViewState extends State<NewNoteView> {
   @override
   void initState() {
     _notesService = NotesService();
+    _textController = TextEditingController();
     super.initState();
   }
 
