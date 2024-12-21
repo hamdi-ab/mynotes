@@ -5,7 +5,7 @@ import 'package:new1/view/login_view.dart';
 import 'package:new1/view/notes/notes_view.dart';
 import 'package:new1/view/register_view.dart';
 import 'package:new1/view/verify_email_view.dart';
-import 'package:new1/view/notes/new_note_view.dart';
+import 'package:new1/view/notes/create_update_note_view.dart';
 import 'package:path/path.dart';
 
 void main() {
@@ -20,7 +20,7 @@ void main() {
         registerRoute: (context) => const RegisterView(),
         noteRoute: (context) => const NoteView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
-        newNoteRoute: (context) => const NewNoteView()
+        createOrUpdateNoteRoute: (context) => const NewNoteView()
       },
     ),
   );
